@@ -1,0 +1,19 @@
+db:
+  image: mysql
+  expose:
+    - "3306"
+  volumes:
+    - ./db:/var/lib/mysql
+  environment:
+    - MYSQL_DATABASE=achievements
+    - MYSQL_ROOT_PASSWORD=root
+
+achievements:
+  build: .
+  command: python3 ./Achievements/manage.py runserver 0.0.0.0:8000
+  volumes:
+    - .:/code
+  ports:
+    - "8000:8000"
+  links:
+    - db
