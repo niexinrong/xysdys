@@ -15,13 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.urls import include
 from django.conf.urls import url
- 
-from . import views,testdb
+
+from . import views, testdb
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^$', views.hello),
-    url('xysdys/',views.xysdys),
-    url('testdb/',testdb.testdb),
+    url('xysdys/', views.xysdys),
+    url('testdb/', testdb.testdb),
+
+    path('captcha/', include('captcha.urls')),  # 图片验证码 路由
+    path('refresh_captcha/', views.refresh_captcha),  # 刷新验证码，ajax
+    path('test/', views.IndexView.as_view()),
+
 ]
